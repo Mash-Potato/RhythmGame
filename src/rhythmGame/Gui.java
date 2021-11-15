@@ -13,27 +13,42 @@ public class Gui extends JFrame {
 
 
     private Image background=new ImageIcon(getClass().getClassLoader().getResource("images/introBackground.jpg")).getImage();
+    private Image gameInfoImage=new ImageIcon(getClass().getClassLoader().getResource("images/gameinfo.png")).getImage();
+    private Image judgementLineImage=new ImageIcon(getClass().getClassLoader().getResource("images/judgementline.png")).getImage();
+    private Image noteRouteImage=new ImageIcon(getClass().getClassLoader().getResource("images/noteroute.png")).getImage();
+    private Image noteRouteLineImage=new ImageIcon(getClass().getClassLoader().getResource("images/noteRouteLine.png")).getImage();
+    private Image noteImage=new ImageIcon(getClass().getClassLoader().getResource("images/note.png")).getImage();
 
     private ImageIcon startButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/startButton.jpg"));
     private ImageIcon endButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/endButton.jpg"));
     private ImageIcon startPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/startPressButton.jpg"));
     private ImageIcon endPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/endPressButton.jpg"));
-
     private ImageIcon leftButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/leftButton.jfif"));
     private ImageIcon rightButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/rightButton.jfif"));
     private ImageIcon leftPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/leftPressButton.jfif"));
     private ImageIcon rightPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/rightPressButton.jfif"));
+    private ImageIcon easyButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/easyButton.png"));
+    private ImageIcon hardButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/hardButton.png"));
+    private ImageIcon easyPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/easyPressButton.png"));
+    private ImageIcon hardPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/hardPressButton.png"));
+    private ImageIcon backButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/leftButton.jfif"));
+    private ImageIcon backPressButtonImage=new ImageIcon(getClass().getClassLoader().getResource("images/leftPressButton.jfif"));
 
     private JButton startButton=new JButton(startButtonImage);
     private JButton endButton=new JButton(endButtonImage);
     private JButton leftButton=new JButton(leftButtonImage);
     private JButton rightButton=new JButton(rightButtonImage);
+    private JButton easyButton=new JButton(easyButtonImage);
+    private JButton hardButton=new JButton(hardButtonImage);
+    private JButton backButton=new JButton(backButtonImage);
 
     private boolean isMainScreen=false;
+    private boolean isGameScreen=false;
 
     ArrayList<Track> trackList = new ArrayList<>();
 
     private Music selectedMusic;
+    private Music introMusic=new Music("introMusic.mp3", true);
     private Image selectImage;
     private int nowSelected = 0;
 
@@ -49,12 +64,11 @@ public class Gui extends JFrame {
         setBackground(new Color(0,0,0,0));
         setLayout(null);
 
-        Music introMusic=new Music("introMusic.mp3", true);
         introMusic.start();
 
-        trackList.add(new Track("tropiclove.jpg","tropiclove.jpg","tropicLove.mp3","tropicLove.mp3"));
-        trackList.add(new Track("summersong.jpg","summersong.jpg","summersong.mp3","summersong.mp3"));
-        trackList.add(new Track("forever.jpg","forever.jpg","forever.mp3","forever.mp3"));
+        trackList.add(new Track("tropiclove.jpg","tropicloveGame.jpg","tropicLove.mp3","tropicLove.mp3"));
+        trackList.add(new Track("summersong.jpg","summersongGame.jpg","summersong.mp3","summersong.mp3"));
+        trackList.add(new Track("forever.jpg","foreverGame.jpg","forever.mp3","forever.mp3"));
 
         startButton.setBounds(40,200,400,100);
         startButton.setBorderPainted(false);
@@ -73,13 +87,7 @@ public class Gui extends JFrame {
             }
             @Override
             public void mousePressed(MouseEvent e) {
-                startButton.setVisible(false);
-                leftButton.setVisible(true);
-                rightButton.setVisible(true);
-                introMusic.close();
-                selectTrack(0);
-                background=new ImageIcon(getClass().getClassLoader().getResource("images/mainBackground.jpg")).getImage();
-                isMainScreen=true;
+                enterMain();
             }
         });
         add(startButton);
@@ -151,19 +159,135 @@ public class Gui extends JFrame {
             }
         });
         add(rightButton);
+
+        easyButton.setVisible(false);
+        easyButton.setBounds(375,580,250,67);
+        easyButton.setBorderPainted(false);
+        easyButton.setContentAreaFilled(false);
+        easyButton.setFocusPainted(false);
+        easyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                easyButton.setIcon(easyPressButtonImage);
+                easyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                easyButton.setIcon(easyButtonImage);
+                easyButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                gameStart(nowSelected,"easy");
+            }
+        });
+        add(easyButton);
+
+        hardButton.setVisible(false);
+        hardButton.setBounds(655,580,250,67);
+        hardButton.setBorderPainted(false);
+        hardButton.setContentAreaFilled(false);
+        hardButton.setFocusPainted(false);
+        hardButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                hardButton.setIcon(hardPressButtonImage);
+                hardButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hardButton.setIcon(hardButtonImage);
+                hardButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                gameStart(nowSelected,"hard");
+            }
+        });
+        add(hardButton);
+
+        backButton.setVisible(false);
+        backButton.setBounds(20,50,60,60);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backButton.setIcon(backPressButtonImage);
+                backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backButton.setIcon(backButtonImage);
+                backButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                backMain();
+            }
+        });
+        add(backButton);
     }
 
     public void paint(Graphics g) {
         screenImage=createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         screenGraphic=screenImage.getGraphics();
-        screenDraw(screenGraphic);
+        screenDraw((Graphics2D)screenGraphic);
         g.drawImage(screenImage,0,0,null);
     }
-    public void screenDraw(Graphics g) {
+
+    public void screenDraw(Graphics2D g) {
         //실시간 동적으로 이미지함수 사용.
         g.drawImage(background,0,0,null);
         if (isMainScreen) {
             g.drawImage(selectImage, 340, 100, null);
+        }
+        if (isGameScreen) {
+            g.drawImage(noteRouteImage, 228, 30, null);
+            g.drawImage(noteRouteImage, 332, 30, null);
+            g.drawImage(noteRouteImage, 436, 30, null);
+            g.drawImage(noteRouteImage, 540, 30, null);
+            g.drawImage(noteRouteImage, 640, 30, null);
+            g.drawImage(noteRouteImage, 744, 30, null);
+            g.drawImage(noteRouteImage, 848, 30, null);
+            g.drawImage(noteRouteImage, 952, 30, null);
+            g.drawImage(noteRouteLineImage, 224, 30, null);
+            g.drawImage(noteRouteLineImage, 328, 30, null);
+            g.drawImage(noteRouteLineImage, 432, 30, null);
+            g.drawImage(noteRouteLineImage, 536, 30, null);
+            g.drawImage(noteRouteLineImage, 740, 30, null);
+            g.drawImage(noteRouteLineImage, 844, 30, null);
+            g.drawImage(noteRouteLineImage, 948, 30, null);
+            g.drawImage(noteRouteLineImage, 1052, 30, null);
+            g.drawImage(gameInfoImage, 0, 660, null);
+            g.drawImage(judgementLineImage, 0, 580, null);
+            g.drawImage(noteImage, 228, 120, null);
+            g.drawImage(noteImage, 332, 580, null);
+            g.drawImage(noteImage, 436, 500, null);
+            g.drawImage(noteImage, 540, 340, null);
+            g.drawImage(noteImage, 640, 340, null);
+            g.drawImage(noteImage, 744, 325, null);
+            g.drawImage(noteImage, 848, 305, null);
+            g.drawImage(noteImage, 952, 305, null);
+            g.setColor(Color.WHITE);
+            g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial",Font.BOLD, 30));
+            g.drawString("Tropic Love",20,702);
+            g.drawString("Easy",1190,702);
+            g.setFont(new Font("Arial",Font.BOLD, 26));
+            g.setColor(Color.DARK_GRAY);
+            g.drawString("S",270,609);
+            g.drawString("D",374,609);
+            g.drawString("F",478,609);
+            g.drawString("Space bar",580,609);
+            g.drawString("J",784,609);
+            g.drawString("K",889,609);
+            g.drawString("L",993,609);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Elephant",Font.BOLD, 30));
+            g.drawString("000000",565,702);
         }
         //버튼 등은 paintComponents사용.
         paintComponents(g);
@@ -194,5 +318,43 @@ public class Gui extends JFrame {
         }
         else nowSelected++;
         selectTrack(nowSelected);
+    }
+
+    public void gameStart(int nowSelected,String difficulty) {
+        if (selectedMusic!=null) {
+            selectedMusic.close();
+        }
+        isMainScreen = false;
+        leftButton.setVisible(false);
+        rightButton.setVisible(false);
+        easyButton.setVisible(false);
+        hardButton.setVisible(false);
+        background=new ImageIcon(getClass().getClassLoader().getResource("images/"+trackList.get(nowSelected).getGameImage())).getImage();
+        backButton.setVisible(true);
+        isGameScreen=true;
+    }
+
+    public void backMain() {
+        isMainScreen=true;
+        leftButton.setVisible(true);
+        rightButton.setVisible(true);
+        easyButton.setVisible(true);
+        hardButton.setVisible(true);
+        background=new ImageIcon(getClass().getClassLoader().getResource("images/mainBackground.jpg")).getImage();
+        backButton.setVisible(false);
+        selectTrack(nowSelected);
+        isGameScreen=false;
+    }
+
+    public void enterMain() {
+        startButton.setVisible(false);
+        background=new ImageIcon(getClass().getClassLoader().getResource("images/mainBackground.jpg")).getImage();
+        leftButton.setVisible(true);
+        rightButton.setVisible(true);
+        easyButton.setVisible(true);
+        hardButton.setVisible(true);
+        selectTrack(0);
+        isMainScreen=true;
+        introMusic.close();
     }
 }
