@@ -209,15 +209,36 @@ public class Game extends Thread {
         Beat[] beats = null;
         if (titleName.equals("Tropic Love") && difficulty.equals("Easy")) {
             int starTime = 2000 - Main.REACH_TIME * 1000;
-            int gap = 105;
+            int gap = 114;
             beats = new Beat[] {
-                    new Beat(starTime, "S"),
-                    new Beat(starTime + gap * 2, "K"),
-                    new Beat(starTime + gap * 4, "D"),
-                    new Beat(starTime + gap * 6, "L"),
-                    new Beat(starTime + gap * 8, "F"),
-                    new Beat(starTime + gap * 10, "J"),
-                    new Beat(starTime + gap * 12, "Space"),
+                    new Beat(starTime, "Space"),
+                    new Beat(starTime + gap * 5, "Space"),
+                    new Beat(starTime + gap * 10, "Space"),
+                    new Beat(starTime + gap * 15, "Space"),
+                    new Beat(starTime + gap * 20, "Space"),
+                    new Beat(starTime + gap * 25, "S"),
+                    new Beat(starTime + gap * 30, "D"),
+                    new Beat(starTime + gap * 35, "F"),
+                    new Beat(starTime + gap * 40, "Space"),
+                    new Beat(starTime + gap * 45, "J"),
+                    new Beat(starTime + gap * 50, "K"),
+                    new Beat(starTime + gap * 55, "L"),
+                    new Beat(starTime + gap * 60, "Space"),
+                    new Beat(starTime + gap * 65, "L"),
+                    new Beat(starTime + gap * 70, "K"),
+                    new Beat(starTime + gap * 75, "J"),
+                    new Beat(starTime + gap * 80, "Space"),
+                    new Beat(starTime + gap * 85, "F"),
+                    new Beat(starTime + gap * 90, "D"),
+                    new Beat(starTime + gap * 95, "S"),
+                    new Beat(starTime + gap * 100, "Space"),
+                    new Beat(starTime + gap * 105, "S"),
+                    new Beat(starTime + gap * 110, "D"),
+                    new Beat(starTime + gap * 115, "F"),
+                    new Beat(starTime + gap * 120, "Space"),
+                    new Beat(starTime + gap * 125, "J"),
+                    new Beat(starTime + gap * 130, "K"),
+                    new Beat(starTime + gap * 135, "L"),
             };
         }
         else if (titleName.equals("Tropic Love") && difficulty.equals("Hard")) {
