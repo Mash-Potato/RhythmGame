@@ -21,7 +21,7 @@ public class Music extends Thread {
             bis=new BufferedInputStream(fis);
             player=new Player(bis);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class Music extends Thread {
                 player=new Player(bis);
             } while (isLoop);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 }

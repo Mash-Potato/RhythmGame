@@ -6,6 +6,7 @@ public class Track {
     private String gameImage;
     private String startMusic;
     private String gameMusic;
+    private String titleName;
 
     public String getStartImage() {
         return startImage;
@@ -39,11 +40,20 @@ public class Track {
         this.gameMusic = gameMusic;
     }
 
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
+
     //생성자
-    public Track(String startImage, String gameImage, String startMusic, String gameMusic) {
+    public Track(String startImage, String gameImage, String startMusic, String gameMusic, String titleName) {
         this.startImage = startImage;
         this.gameImage = gameImage;
         this.startMusic = startMusic;
         this.gameMusic = gameMusic;
+        this.titleName = titleName;
     }
 }
