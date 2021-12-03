@@ -1,10 +1,10 @@
 [자바] 리듬 게임 개발 프로젝트
 ======================
 # 1. 게임 이름 및 설명
-##▶ 게임 이름
+## ▶ 게임 이름
 	RhythmGame
 
-##▶ 게임 설명
+## ▶ 게임 설명
 	1. 원하는 곡 및 easy, hard 난이도를 선택한다.
 	2. s, d, f, space, j, k, l 키보드를 사용하여 리듬에 맞게 입력한다.
 
@@ -29,19 +29,19 @@
 
 ****
 ## 4.NCS 저작권
-###SummerSong
+### SummerSong
     Track: Elektronomia - Summersong 2018 [NCS Release]
     Music provided by NoCopyrightSounds.
     Watch: https://youtu.be/HoCw_gaCHXE
     Free Download / Stream: http://ncs.io/SummersongYO
 
-###Tropic love
+### Tropic love
     Track: Diviners - Tropic Love (feat. Contacreast) [NCS Release]
     Music provided by NoCopyrightSounds.
     Watch: https://www.youtube.com/watch?v=u6RJv7f__Mg
     Free Download / Stream: http://ncs.io/tropiclove
 
-###Forever
+### Forever
     Track: Vanze - Forever (feat. Brenton Mattheus) [NCS Release]
     Music provided by NoCopyrightSounds.
     Watch: https://www.youtube.com/watch?v=RX7fZ5I709Y
